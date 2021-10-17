@@ -1,10 +1,40 @@
 const tagsEl = document.getElementById('tags');
 const textarea = document.getElementById('textarea');
 
-const selectRandomTag = () => {
+const pickARandomTAg = () => {
   const tags = tagsEl.querySelectorAll('.tag');
-  const idx = Math.floor(Math.random() * (tags.length - 1));
-  tags[idx].classList.add('highlight');
+  const idx = Math.floor(Math.random() * tags.length);
+  return tags[idx];
+};
+
+const highlightTag = (tag) => {
+  tag.classList.add('highlight');
+};
+
+const unHighlightTag = (tag) => {
+  tag.classList.remove('highlight');
+};
+const selectRandomTag = () => {
+  const times = 3000;
+
+  const interval = setInterval(() => {
+    const randomTag = pickARandomTAg();
+
+    highlightTag(randomTag);
+
+    setTimeout(() => {
+      unHighlightTag(randomTag);
+    }, 100);
+  }, 100);
+
+  setTimeout(() => {
+    clearInterval(interval);
+
+    setTimeout(() => {
+      const randomTag = pickARandomTAg();
+      highlightTag(randomTag);
+    }, 100);
+  }, times);
 };
 
 const createTags = (input) => {
